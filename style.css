@@ -305,61 +305,207 @@ section h2::after {
 
 /* Cerita Section - Timeline */
 .cerita-section {
-  background-color: #fff;
+  padding: 40px 20px; /* Tambah padding horizontal untuk mobile */
+  text-align: center; /* Pusatkan judul di mobile */
 }
+
+.cerita-section h2 {
+  margin-bottom: 30px;
+  font-size: 2.2em; /* Ukuran font judul di mobile */
+}
+
 .timeline {
   position: relative;
-  max-width: 700px;
+  max-width: 600px; /* Batasi lebar timeline di mobile */
   margin: 0 auto;
+  padding: 20px 0;
 }
+
 .timeline::after {
   content: "";
   position: absolute;
-  width: 4px;
-  background-color: var(--secondary-color);
+  width: 2px;
+  background-color: #d4d4d4;
   top: 0;
   bottom: 0;
-  left: 50%;
-  margin-left: -2px;
+  left: 50%; /* Pusatkan garis timeline */
+  margin-left: -1px;
+  z-index: 1;
 }
+
 .timeline-item {
-  padding: 10px 40px;
+  padding: 10px 0;
   position: relative;
-  background-color: inherit;
-  width: 50%;
+  width: 100%;
+  margin-left: 0; /* Pastikan tidak ada margin kiri */
 }
-.timeline-item:nth-child(odd) {
-  left: 0;
-}
-.timeline-item:nth-child(even) {
-  left: 50%;
-}
+
 .timeline-item::after {
-  /* Lingkaran di timeline */
   content: "";
   position: absolute;
   width: 20px;
   height: 20px;
-  right: -12px; /* Disesuaikan */
+  right: auto;
+  left: 50%;
   background-color: white;
-  border: 4px solid var(--primary-color);
-  top: 20px;
+  border: 3px solid var(--primary-color); /* Gunakan variabel warna primer Anda */
+  top: 15px;
   border-radius: 50%;
-  z-index: 1;
+  z-index: 2;
+  transform: translateX(-50%); /* Pusatkan marker pada garis */
 }
-.timeline-item:nth-child(even)::after {
-  left: -8px; /* Disesuaikan */
-}
+
 .timeline-content {
-  padding: 20px 30px;
-  background-color: var(--bg-color);
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 5px;
   position: relative;
-  border-radius: 6px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+  width: 100%;
+  text-align: center; /* Pusatkan konten di dalam item */
 }
+
 .timeline-content h3 {
+  font-size: 1.4em;
   margin-top: 0;
-  font-size: 1.5em;
+}
+
+/* Hilangkan efek float untuk mobile */
+.timeline-item:nth-child(odd) .timeline-content,
+.timeline-item:nth-child(even) .timeline-content {
+  float: none;
+}
+
+.timeline-item:nth-child(odd)::after,
+.timeline-item:nth-child(even)::after {
+  left: 50%; /* Pusatkan marker */
+  right: auto;
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+  margin-left: 0;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+  margin-right: 0;
+}
+
+/* Tambahkan sedikit ruang di atas dan bawah setiap item */
+.timeline-item {
+  margin-bottom: 20px;
+}
+
+/* Media query untuk layar yang lebih besar jika Anda ingin tampilan berbeda di desktop */
+@media (max-width: 768px) {
+  .cerita-section {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 20px; /* Memberi jarak dari tepi kiri layar untuk keseluruhan bagian */
+    padding-right: 20px; /* Memberi jarak dari tepi kanan layar */
+    overflow-x: hidden; /* Mencegah scroll horizontal jika ada elemen yang 'nakal' */
+  }
+
+  .cerita-section h2 {
+    font-size: 2em; /* Sesuaikan ukuran judul untuk mobile */
+    margin-bottom: 30px; /* Jarak bawah judul */
+    text-align: center; /* Judul di tengah */
+  }
+
+  .timeline {
+    position: relative;
+    margin: 0; /* Hapus margin auto jika ada, karena section sudah punya padding */
+    /* padding-left: 0; Tidak perlu padding-left di sini, kita atur di elemen anak */
+  }
+
+  .timeline::after {
+    /* Garis vertikal utama timeline */
+    content: "";
+    position: absolute;
+    left: 10px; /* Posisi garis dari tepi kiri .timeline. Ini adalah referensi utama. */
+    /* Dengan section padding 20px + line left 10px = 30px dari tepi layar. */
+    top: 5px; /* Mulai garis sedikit di bawah awal item pertama (sesuaikan dengan posisi marker) */
+    bottom: 5px; /* Akhiri garis sedikit di atas akhir item terakhir */
+    width: 3px; /* Lebar garis timeline */
+    background-color: var(--secondary-color, #d2b48c); /* Warna garis */
+    z-index: 1;
+    border-radius: 3px; /* Membuat ujung garis sedikit melengkung */
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 25px; /* Jarak antar item cerita */
+    padding-left: 35px; /* RUANG UTAMA: Memberi jarak dari tepi kiri .timeline-item untuk konten.
+                             Ini harus cukup untuk menampung marker dan sedikit spasi.
+                             (Posisi garis 10px) + (radius marker ~13px) + (spasi ~12px) = 35px */
+    width: 100%;
+  }
+
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .timeline-item::after {
+    /* Marker (lingkaran) pada timeline */
+    content: "";
+    position: absolute;
+    top: 5px; /* Vertikal alignment marker, sesuaikan agar pas dengan teks/desain */
+    /* Untuk menempatkan TENGAH marker pada GARIS:
+                           Garis ada di 'left: 10px' (relatif ke .timeline, atau 0px relatif ke .timeline-item jika .timeline-item tidak ada padding kiri awal).
+                           Namun karena .timeline-item punya padding-left: 35px, kita posisikan marker relatif ke tepi .timeline-item.
+                           Garisnya ada pada '10px' dari tepi .timeline.
+                           Marker 'left' = (posisi garis dari tepi .timeline-item) - (radius luar marker)
+                                        = 10px - ( (20px/2) + 3px ) -> Ini jika .timeline-item tidak ada padding.
+
+                           Lebih mudah: Garis berada pada 10px dari tepi .timeline.
+                           Marker (child dari .timeline-item) perlu ditempatkan pada posisi horizontal yang sama.
+                           Jika .timeline-item tidak punya padding-left khusus untuk marker, maka:
+                           left: 10px (posisi garis) - (10px (setengah lebar marker) + 3px (border marker)) = -3px.
+                           Ini akan menempatkan tepi kiri marker.
+                        */
+    left: -3px; /* (Posisi garis dari .timeline adalah 10px).
+                            Marker perlu (10px (untuk tengahnya di garis)) - (10px (radius) + 3px (border)) = -3px dari tepi kiri .timeline-item.
+                            Ini agar bagian tengah marker pas di garis (yang berada 10px dari tepi .timeline).
+                            Pastikan .timeline-item padding-left cukup (35px). */
+    width: 20px; /* Lebar marker */
+    height: 20px; /* Tinggi marker */
+    background-color: white;
+    border: 3px solid var(--primary-color, #8b4513); /* Border marker */
+    border-radius: 50%; /* Membuatnya bulat */
+    z-index: 2; /* Marker di atas garis */
+  }
+
+  .timeline-content {
+    background-color: var(--bg-color, #faf0e6); /* Warna latar konten item */
+    padding: 15px; /* Padding di dalam box konten */
+    border-radius: 8px; /* Sudut melengkung untuk box konten */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08); /* Shadow yang lebih halus */
+    text-align: left; /* Teks rata kiri di dalam box */
+  }
+
+  .timeline-content h3 {
+    font-family: var(--font-display, "Playfair Display", serif);
+    color: var(--primary-color, #8b4513);
+    font-size: 1.2em; /* Ukuran judul tanggal/penting */
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+
+  .timeline-content p {
+    font-family: var(--font-body, "Lato", sans-serif);
+    font-size: 0.9em; /* Ukuran deskripsi */
+    line-height: 1.5;
+    margin-bottom: 0;
+    color: var(--text-color, #333);
+  }
+
+  /* Menghilangkan gaya float dari desktop jika ada */
+  .timeline-item:nth-child(odd),
+  .timeline-item:nth-child(even) {
+    float: none;
+    clear: both;
+    padding-right: 0;
+  }
 }
 
 /* RSVP Section */
